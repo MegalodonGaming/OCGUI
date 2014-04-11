@@ -1,0 +1,293 @@
+package Resources;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+
+/**
+ * 
+ * @author Sol
+ *This program was made as a tool to be used for the study of 
+ *the Nomenclature for organic compounds, structural isomers, and the 
+ *physical trends of organic compounds
+ */
+public class OrganicChemGUI extends JFrame{
+	
+	private TrendChem TD;
+	private Nomenclature NM;
+	private TitlePanel titlepanel;
+	private JPanel buttonPanel;			
+	private JButton aboutButton;
+	private JButton exitButton;
+	private final int WINDOW_WIDTH = 2000;
+	private final int WINDOW_HEIGHT = 1500;
+	
+	public OrganicChemGUI() 
+	{
+		//Display a title
+		setTitle("Organic Chemistry");
+		
+		//Set the size of the window
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		//Specify the action for the close button
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//Create a BorderLayout manager
+		setLayout(new BorderLayout());
+		
+		//Custom panel manager
+		TD = new TrendChem();
+		NM = new Nomenclature();
+		
+		//Build the button panel
+		buildButtonPanel();
+			
+		//Build custom made panels
+		TD = new TrendChem();
+		NM = new Nomenclature();
+		
+		//Add components to the content pane
+		add(TD, BorderLayout.EAST);
+		add(NM, BorderLayout.WEST);
+		add(buttonPanel, BorderLayout.SOUTH);
+		
+		//Pack and display it
+		pack();
+		setVisible(true);
+	}
+	
+	/**
+	 * The buildButtonPanel method builds the button panel
+	 */
+	
+	private void buildButtonPanel()
+	{
+		//Create a panel for the buttons
+		buttonPanel = new JPanel();
+		
+		//Create the buttons
+		aboutButton = new JButton("About");
+		exitButton = new JButton("Exit");
+		
+		//Register the action listeners
+		aboutButton.addActionListener(new AboutButtonListener());
+		exitButton.addActionListener(new ExitButtonListener());
+				
+		//add the buttons to the panel
+		buttonPanel.add(aboutButton);
+		buttonPanel.add(exitButton);
+	}
+	
+	/**
+	 * Private inner class that handles the event when
+	 * the user clicks the About button. 
+	 */
+	
+	private class AboutButtonListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			//Display the charges 
+			JOptionPane.showMessageDialog(null, "Organic Chemistry GUI \nCreated by MegalodonGaming \nInformation from Pearson Baccualaureate Higher Level Chemistry \n All rights Reserved");
+			
+		}
+
+	}
+	
+	/**
+	 * Private inner class that handles the event when 
+	 * the user clicks the Exit button
+	 */
+	
+	private class ExitButtonListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			System.exit(0);
+		}
+	}
+	
+	
+
+
+
+//Method for the Nomenclature Tab
+
+	public class Nomenclature extends JPanel{
+	
+		private JButton btn1;
+		private JButton btn2;
+		private JButton btn3;
+		private ButtonGroup nc; 				//nc = Nomenclature
+		
+		public Nomenclature()
+		{
+			//Create GridLayout Manager
+			setLayout(new GridLayout (3, 1));
+			
+			//Create the buttons
+			btn1 = new JButton("Rule number One");
+			btn2 = new JButton("Rule number Two");
+			btn3 = new JButton("Rule number Three");
+			
+			//Group buttons 
+			nc = new ButtonGroup();
+			nc.add(btn1);
+			nc.add(btn2);
+			nc.add(btn3);
+			
+			
+			//Add a border around the panel
+			setBorder(BorderFactory.createTitledBorder("Organic Nomenclature"));
+			
+			//Add the buttons to the panel
+			add(btn1);
+			add(btn2);
+			add(btn3);
+			
+			//Register the Action Listeners for the Buttons
+			btn1.addActionListener(new Button1ActionListener());
+			btn2.addActionListener(new Button2ActionListener());
+			btn3.addActionListener(new Button3ActionListener());
+			
+			
+		}
+		
+		
+		
+		private class Button1ActionListener implements ActionListener
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				//Display Nomenclature info
+				JOptionPane.showMessageDialog(null, "meth- is 1" + " eth- is 2" + " prop- is 3" + "\nbut- is 4" + " pent- is 5" + " hex- is 6" + "\nhept- is 7" + " oct- is 8" + " non- is 9" + " dec- is 10");
+			}
+		}
+	
+		
+		private class Button2ActionListener implements ActionListener
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				//Display functional group info
+				
+				final ImageIcon fgpic = new ImageIcon((OrganicChemGUI.class.getResource("/Resources/Functional Groups.png")));
+				JOptionPane.showMessageDialog(null, fgpic);
+				
+				
+			}
+		}
+		
+		private class Button3ActionListener implements ActionListener
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				final ImageIcon R3 = new ImageIcon((OrganicChemGUI.class.getResource("/Resources/Rule3.png")));
+				JOptionPane.showMessageDialog(null, R3);
+			}
+		}
+	}
+		//Class for Trends
+		
+		public class TrendChem extends JPanel{
+			
+			private JButton vol;
+			private JButton sol;
+			private JButton tgraph;
+			private ButtonGroup td;
+			
+			public TrendChem()
+			{
+				//GridLayout manager
+				setLayout(new GridLayout (2,1));
+				
+				//Create the new buttons
+				vol = new JButton("Volatility");
+				sol = new JButton("Solubility in water");
+				tgraph = new JButton("Trend Graph");
+				
+				//Group the buttons
+				td = new ButtonGroup();
+				td.add(vol);
+				td.add(sol);
+				td.add(tgraph);
+				
+				//Add the buttons to the panel
+				add(vol);
+				add(sol);
+				add(tgraph);
+				
+				//Add a border around the panel
+				setBorder(BorderFactory.createTitledBorder("Trends in physical properties"));
+				
+				//Register the action listeners for the buttons
+				vol.addActionListener(new ButtonOneActionListener());
+				sol.addActionListener(new ButtonTwoActionListener());
+				tgraph.addActionListener(new ButtonThreeActionListener());
+			}
+			
+			private class ButtonOneActionListener implements ActionListener
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					JOptionPane.showMessageDialog(null, "Volatility is a measure of how easily a substance \nchanges into the gaseous state - high volatility means \nthat the compund has a low boiling point. \n" +
+							"Volatility depends on overcoming the forces between the \nmolucules, so the stronger the intermolecular forces, the higher the boiling point");
+				}
+			}
+			
+			private class ButtonTwoActionListener implements ActionListener
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					JOptionPane.showMessageDialog(null, "Solubility is largely determined by the extent to which the solute \n molecules are able to interact and form hydrogen bonds with water");
+				}
+			}
+	
+			private class ButtonThreeActionListener implements ActionListener
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					//File directory
+					final ImageIcon tg = new ImageIcon((OrganicChemGUI.class.getResource("/Resources/TrendGraph.png")));
+					JOptionPane.showMessageDialog(null, tg);
+				}
+			
+			}
+		}
+		
+		public class TitlePanel extends JPanel
+		{
+			private JLabel title;
+			
+			/**
+			 * Constructor
+			 */
+			
+			public TitlePanel()
+			{
+				//Create the panel
+				title = new JLabel("Organic Chemistry");
+				
+				//Add the label to this panel
+				add(title);
+			}
+		}
+		
+
+		
+		
+		
+	}
+
+
